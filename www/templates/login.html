@@ -1,18 +1,19 @@
-<ion-view title="Login" id="login_view">
-  <ion-content padding="true" class="has-header">
-    <form id="login-form2" class="list">
-      <ion-list id="login-list1">
-        <label class="item item-input" id="login_input_username">
+<ion-view title="Login" id="page6" hide-back-button="true">
+    <ion-content padding="true" class="has-header">
+        <form id="login-form2" class="list">
+            <h1 id="login-heading1" style="color:#29ABCC;text-align:center;">Andromeda</h1>
+            <ion-list id="login-list1">
+                <label class="item item-input" id="login-input4">
           <input type="text" placeholder="Username">
         </label>
-        <label class="item item-input item-stacked-label" id="login_input_password">
+                <label class="item item-input item-stacked-label" id="login-input5">
           <input type="password" placeholder="Password">
         </label>
-      </ion-list>
-      <button id="login_button" class="button button-dark  button-block">Log in</button>
-      <a href-inappbrowser="/signup" id="login-button3" class="button button-positive  button-block button-clear">Or create an account</a>
-      <button id="login_button_google" class="button button-assertive  button-block icon-right ion-social-google">Login With Google</button>
-    </form>
-    <button id="login_button_facebook" class="button button-positive  button-block icon-right ion-social-facebook">Login With Facebook</button>
-  </ion-content>
+            </ion-list>
+            <button id="login-button2" class="button button-dark  button-block" ng-click="loginWithUserCredentials()">Log in</button>
+            <a href="/signup" id="login-button3" class="button button-positive  button-block button-clear">Or create an account</a>
+            <button id="login-button4" class="button button-assertive  button-block icon-right ion-social-google" ng-click="loginGoogle()">Login With Google</button>
+        </form>
+        <button id="login-button6" class="button button-positive  button-block icon-right ion-social-facebook">Login With Facebook</button>
+    </ion-content>
 </ion-view>
