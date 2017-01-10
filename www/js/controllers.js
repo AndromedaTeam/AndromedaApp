@@ -80,8 +80,14 @@ angular.module('app.controllers', [])
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
     function($scope, $stateParams) {
-
-
+        $scope.user = {
+            name : "",
+            email: "",
+            password: ""
+        }
+        $scope.signupWithEmail = function(){
+            console.log($scope.user);
+        }
     }
 ])
 
