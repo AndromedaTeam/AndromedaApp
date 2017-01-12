@@ -84,9 +84,37 @@ angular.module('app.controllers', [])
         $scope.loginGoogle = function() {
             var provider = new firebase.auth.GoogleAuthProvider();
             provider.addScope('https://www.googleapis.com/auth/plus.login');
-            provider.setCustomParameters({
-                'login_hint': 'user@example.com'
+            // provider.setCustomParameters({
+            //     'login_hint': 'user@example.com'
+            // });
+            firebase.auth().signInWithPopup(provider).then(function(result) {
+                var token = result.credential.accessToken;
+                var user = result.user;
+                var providerData = user.providerData[0];
+                firebase.database().ref('users/' + providerData.displayName).set({ Email: providerData.email, PhotoURL: providerData.photoURL, uid: providerData.uid });
+                console.log(user);
+                //$state.go("tab.polling");
+                $state.transitionTo("tabsController.polling");
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Oops!',
+                    template: errorMessage
+                });
             });
+        }
+
+
+        $scope.loginFacebook = function() {
+            var provider = new firebase.auth.FacebookAuthProvider();
             firebase.auth().signInWithPopup(provider).then(function(result) {
                 var token = result.credential.accessToken;
                 var user = result.user;
