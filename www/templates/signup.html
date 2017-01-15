@@ -10,6 +10,16 @@
           <span class="input-label">Email</span>
           <input type="email" placeholder="" ng-model="user.email">
         </label>
+        <label class="item item-input" id="signup-company">
+          <span class="input-label">Company</span>
+          <input type="text" placeholder="" ng-model="user.company">
+        </label>
+        <label class="item item-input" id="signup-mobile">
+          <span class="input-label">Mobile</span>
+          <input type="number" placeholder="" ng-model="user.mobile">
+        </label>
+        <ion-radio ng-model="user.choice" ng-value="'Host'">Host</ion-radio>
+  <ion-radio ng-model="user.choice" ng-value="'Participant'">Participant</ion-radio>
         <!--<label class="item item-input" id="signup-input7">
           <span class="input-label">Username</span>
           <input type="text" placeholder="">
