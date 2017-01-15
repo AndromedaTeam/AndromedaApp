@@ -1,0 +1,3 @@
+digitalVotingApp.directive('blankDirective', [function(){
+
+}]);

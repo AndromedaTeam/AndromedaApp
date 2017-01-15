@@ -1,0 +1,3 @@
+digitalVotingApp.factory('BlankFactory', [function() {
+
+}]);

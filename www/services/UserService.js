@@ -1,14 +1,4 @@
-angular.module('app.services', [])
-
-.factory('BlankFactory', [function() {
-
-}])
-
-.service('BlankService', [function() {
-
-}])
-
-.factory("UserService", [
+digitalVotingApp.factory("UserService", [
 
     function($firebaseObject) {
 
@@ -37,10 +27,3 @@ angular.module('app.services', [])
         return this;
     }
 ]);
-
-
-// ref.once('value', function(snapshot) {
-//     snapshot.forEach(function(child){
-//         console.log(child);
-//     })
-// })
