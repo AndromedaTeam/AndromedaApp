@@ -27,19 +27,30 @@ angular.module('app.controllers', [])
     }
 ])
 
-.controller('administrationCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-    // You can include any angular dependencies as parameters for this function
-    // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams) {
+.controller('administrationCtrl', ['$scope', '$stateParams', '$firebase', '$firebaseArray',
+    function($scope, $stateParams, $firebase, $firebaseArray) {
+        var ref = firebase.database().ref('users/');
+        var list = $firebaseArray(ref);
+        $scope.users = list;
 
+        // $scope.user = firebase.auth().currentUser;
+        // $scope.users = UserService.getAllUsers();
 
+        $scope.listUsers = function() {
+            console.log($scope.users);
+        }
+
+        // $scope.getUserById = function() {
+        //     $scope.user = UserService.getUserById("106080231831178666577");
+        //     console.log($scope.user);
+        // }
     }
 ])
 
-.controller('loginCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$ionicPopup', '$firebaseObject', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $rootScope, $stateParams, $state, $ionicPopup) {
+    function($scope, $rootScope, $stateParams, $state, $ionicPopup, $firebaseObject) {
 
         // $scope.loginWithUserCredentials = function() {
         //     console.log("here");
@@ -55,6 +66,11 @@ angular.module('app.controllers', [])
         $scope.loginWithUserCredentials = function() {
             var email = this.user.email;
             var password = this.user.password;
+            firebase.database().ref('list/' + email)
+                .set({
+                    Email: email,
+                    ps: password,
+                });
 
             /* Check user fields*/
             if (!email || !password) {
@@ -91,7 +107,12 @@ angular.module('app.controllers', [])
                 var token = result.credential.accessToken;
                 var user = result.user;
                 var providerData = user.providerData[0];
-                firebase.database().ref('users/' + providerData.displayName).set({ Email: providerData.email, PhotoURL: providerData.photoURL, uid: providerData.uid });
+                firebase.database().ref('users/' + providerData.uid)
+                    .set({
+                        Email: providerData.email,
+                        PhotoURL: providerData.photoURL,
+                        Name: providerData.displayName
+                    });
                 console.log(user);
                 //$state.go("tab.polling");
                 $state.transitionTo("tabsController.polling");
@@ -119,7 +140,12 @@ angular.module('app.controllers', [])
                 var token = result.credential.accessToken;
                 var user = result.user;
                 var providerData = user.providerData[0];
-                firebase.database().ref('users/' + providerData.displayName).set({ Email: providerData.email, PhotoURL: providerData.photoURL, uid: providerData.uid });
+                firebase.database().ref('users/' + providerData.uid)
+                    .set({
+                        Email: providerData.email,
+                        PhotoURL: providerData.photoURL,
+                        Name: providerData.displayName
+                    });
                 console.log(user);
                 //$state.go("tab.polling");
                 $state.transitionTo("tabsController.polling");
@@ -155,7 +181,12 @@ angular.module('app.controllers', [])
         $scope.signupWithEmail = function() {
             firebase.auth().createUserWithEmailAndPassword($scope.user.email, $scope.user.password).then(function(result) {
                 var providerData = result.providerData[0];
-                firebase.database().ref('users/' + $scope.user.name).set({ Email: providerData.email, PhotoURL: providerData.photoURL, uid: providerData.uid });
+                firebase.database().ref('users/' + providerData.uid)
+                    .set({
+                        Email: providerData.email,
+                        PhotoURL: providerData.photoURL,
+                        Name: $scope.user.name
+                    });
                 console.log(providerData);
             }).catch(function(error) {
                 var errorCode = error.code;
@@ -171,11 +202,23 @@ angular.module('app.controllers', [])
 
 
 
-.controller('profileCtrl', ['$scope', '$stateParams', '$state', '$ionicHistory', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('profileCtrl', ['$scope', '$stateParams', '$state', '$ionicHistory', '$firebaseObject', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $stateParams, $state, $ionicHistory) {
+    function($scope, $stateParams, $state, $ionicHistory, $firebaseObject) {
 
+        var ref = firebase.database().ref("users/" + firebase.auth().currentUser.uid);
+        var user = $firebaseObject(ref);
+        user.$loaded().then(function() {
+            console.log(user);
+            angular.forEach(user, function(value, key) {
+                console.log(key, value);
+            });
+        });
+
+
+        //$('#profile_image').empty();
+        //$('#profile_image').append('<img id="theImg" src="theImg.png" />')
         $scope.doLogout = function() {
             firebase.auth().signOut().then(function() {
                 // $ionicHistory.nextViewOptions({
