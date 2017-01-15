@@ -81,6 +81,16 @@ digitalVotingApp.config(function($ionicConfigProvider, $sceDelegateProvider,$sta
         templateUrl: 'templates/notifications.html',
         controller: 'notificationsCtrl'
     })
+    .state('manageEvents', {
+        url: '/manageEvents',
+        templateUrl: 'templates/EventsManagement.html',
+        controller: 'administrationCtrl'
+    })
+    .state('createEvent', {
+        url: '/createEvent',
+        templateUrl: 'templates/createEvent.html',
+        controller: 'administrationCtrl'
+    })
 
 
     $urlRouterProvider.otherwise('/login')

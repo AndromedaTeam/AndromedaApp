@@ -1,0 +1,17 @@
+<ion-view title="Create Event" id="page7">
+  <ion-content padding="true" class="has-header">
+    <form id="createEventForm" class="list">
+      <ion-list id="newEvent">
+        <label class="item item-input" id="eventName">
+          <span class="input-label">Event Name</span>
+          <input type="text" placeholder="" ng-model="event.name">
+        </label>
+        <label class="item item-input" id="eventDesc">
+          <span class="input-label">Description</span>
+          <textarea ng-model="event.desc"></textarea>
+        </label>
+      </ion-list>
+      <button id="createButton" class="button button-balanced  button-block" ng-click="submitEvent()">Create</button>
+    </form>
+  </ion-content>
+</ion-view>
