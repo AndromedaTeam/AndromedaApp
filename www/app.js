@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var digitalVotingApp=angular.module('app', ['ionic', 'firebase']);
+var digitalVotingApp = angular.module('app', ['ionic', 'firebase']);
 
-digitalVotingApp.config(function($ionicConfigProvider, $sceDelegateProvider,$stateProvider,$urlRouterProvider) {
+digitalVotingApp.config(function($ionicConfigProvider, $sceDelegateProvider, $stateProvider, $urlRouterProvider) {
 
 
     $sceDelegateProvider.resourceUrlWhitelist(['self', '*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
@@ -154,7 +154,6 @@ digitalVotingApp.config(function($ionicConfigProvider, $sceDelegateProvider,$sta
             $element.on('touchend', allowDrag);
             $element.on('mousedown', stopDrag);
             $element.on('mouseup', allowDrag);
-
         }]
     };
 }])
