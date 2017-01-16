@@ -1,8 +1,8 @@
 
-digitalVotingApp.controller('signupCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+digitalVotingApp.controller('signupCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', '$state','$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function($scope, $rootScope, $stateParams, $ionicPopup, $ionicLoading, $state) {
+    function($scope, $stateParams, $ionicPopup, $ionicLoading, $state,$rootScope) {
 
         $scope.user = {
             name: this.name,
