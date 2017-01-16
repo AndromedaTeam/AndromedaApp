@@ -91,6 +91,11 @@ digitalVotingApp.config(function($ionicConfigProvider, $sceDelegateProvider, $st
             templateUrl: 'templates/createEvent.html',
             controller: 'administrationCtrl'
         })
+        .state('editEvent', {
+            url: '/editEvent',
+            templateUrl: 'templates/editEvent.html',
+            controller: 'administrationCtrl'
+        })
         .state('manageUsers', {
             url: '/manageUsers',
             templateUrl: 'templates/users.html',
