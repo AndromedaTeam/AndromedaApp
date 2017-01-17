@@ -10,7 +10,7 @@
           <div class="col"></div>
         </div>-->
         <div class="list">
-            <ion-radio class="ion-radio item-icon-right" ng-repeat="data in events" ng-value="{{data.$id}}" ng-model="event.id">
+            <ion-radio class="ion-radio item-icon-right" ng-repeat="data in events" ng-value="data.$id" ng-model="event.id">
                 {{data.Name}}
             </ion-radio>
             <!--<div class="row" ng-repeat="data in events">
