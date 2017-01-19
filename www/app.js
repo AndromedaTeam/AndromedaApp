@@ -5,6 +5,15 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
+var config = {
+    apiKey: "AIzaSyBdwwwXs7dQeKsFs5-KL-EGM_F1p_lkcZk",
+    authDomain: "andromeda-9e149.firebaseapp.com",
+    databaseURL: "https://andromeda-9e149.firebaseio.com",
+    storageBucket: "andromeda-9e149.appspot.com",
+    messagingSenderId: "34743106949"
+};
+firebase.initializeApp(config);
+
 var digitalVotingApp = angular.module('app', ['ionic', 'firebase']);
 
 digitalVotingApp.config(function($ionicConfigProvider, $sceDelegateProvider, $stateProvider, $urlRouterProvider) {
@@ -130,15 +139,6 @@ digitalVotingApp.config(function($ionicConfigProvider, $sceDelegateProvider, $st
                 event.preventDefault();
             }
         });
-
-        var config = {
-            apiKey: "AIzaSyBdwwwXs7dQeKsFs5-KL-EGM_F1p_lkcZk",
-            authDomain: "andromeda-9e149.firebaseapp.com",
-            databaseURL: "https://andromeda-9e149.firebaseio.com",
-            storageBucket: "andromeda-9e149.appspot.com",
-            messagingSenderId: "34743106949"
-        };
-        firebase.initializeApp(config);
     });
 })
 
