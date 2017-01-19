@@ -13,6 +13,16 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyBdwwwXs7dQeKsFs5-KL-EGM_F1p_lkcZk",
+            authDomain: "andromeda-9e149.firebaseapp.com",
+            databaseURL: "https://andromeda-9e149.firebaseio.com",
+            storageBucket: "andromeda-9e149.appspot.com",
+            messagingSenderId: "34743106949"
+        };
+        firebase.initializeApp(config);
+    </script>
 
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -69,7 +79,7 @@
     <script src="services/UserService.js"></script>
     <script src="directives/blankDirective.js"></script>
 
-    
+
 
     <!-- Only required for Tab projects w/ pages in multiple tabs 
     <script src="lib/ionicuirouter/ionicUIRouter.js"></script>

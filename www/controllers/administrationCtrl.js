@@ -11,9 +11,7 @@ digitalVotingApp.controller('administrationCtrl', ['$scope', '$stateParams', '$f
 
 
         $scope.event = {
-            name: this.name,
-            desc: this.desc,
-            id: null
+            selectedEvent: null
         };
 
 
@@ -53,19 +51,18 @@ digitalVotingApp.controller('administrationCtrl', ['$scope', '$stateParams', '$f
 
 
         $scope.deleteEvent = function() {
-            var ref = firebase.database().ref('events/' + 'R71XUPUN8JYu7yOKAdIIADBgmEh2');
-            var list = $firebaseArray(ref);
-            list.$loaded().then(function() {
-                angular.forEach(list, function(item) {
-                    if ($scope.selected[item.Name] == true) {
-                        list.$remove(item).then(function(ref) {
-                            console.log(deleted); // true
 
-                        });
-                    }
+            $scope.eventList.$remove($scope.event.selectedEvent).then(function() {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Success!',
+                    template: "Deleted successfully"
                 });
-                $scope.loadEvents();
             });
+            // angular.forEach($scope.eventList, function(item) {
+            //     if (item.$id === $scope.event.selectedEvent.$id) {
+            //         console.log(item);
+            //     }
+            // });
         };
 
 
@@ -74,7 +71,7 @@ digitalVotingApp.controller('administrationCtrl', ['$scope', '$stateParams', '$f
         $scope.selectedEvent = null;
 
         $scope.openEvent = function() {
-            var eventPath = 'events/' + firebase.auth().currentUser.uid + '/' + $scope.event.id;
+            var eventPath = 'events/' + firebase.auth().currentUser.uid + '/' + $scope.event.selectedEvent.$id;
             var selectedEventRef = firebase.database().ref(eventPath);
             $scope.selectedEvent = $firebaseObject(selectedEventRef);
             $scope.selectedEvent.$loaded(function(data) {

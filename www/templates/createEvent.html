@@ -15,14 +15,14 @@
         </form>
         <ion-scroll direction="y" style="width: 100%; height: 260px">
             <div class="list">
-                <ion-radio class="ion-radio item-icon-right" ng-repeat="data in eventList" ng-value="data.$id" ng-model="event.id">
+                <ion-radio class="ion-radio item-icon-right" ng-repeat="data in eventList" ng-value="data" ng-model="event.selectedEvent">
                     {{data.Name}}
                 </ion-radio>
             </div>
         </ion-scroll>
         <div class="row">
             <div class="col text-center">
-                <button class="button button-assertive" ng-click="deletEvent()">
+                <button class="button button-assertive" ng-click="deleteEvent()">
                     Delete Event
                 </button>
             </div>
