@@ -1,8 +1,14 @@
-digitalVotingApp.controller('administrationCtrl', ['$scope', '$stateParams', '$firebaseArray', '$state', '$rootScope', '$ionicPopup', '$firebaseObject',
-    function($scope, $stateParams, $firebaseArray, $state, $rootScope, $ionicPopup, $firebaseObject) {
+digitalVotingApp.controller('administrationCtrl', ['$scope', '$stateParams', '$firebaseArray', '$state', '$rootScope', '$ionicPopup', '$ionicLoading', '$firebaseObject',
+    function($scope, $stateParams, $firebaseArray, $state, $rootScope, $ionicPopup, $ionicLoading, $firebaseObject) {
         var ref = firebase.database().ref('users/');
         var list = $firebaseArray(ref);
         $scope.users = list;
+
+
+        var ref = firebase.database().ref('events/' + firebase.auth().currentUser.uid);
+        $scope.eventList = $firebaseArray(ref);
+
+
 
         $scope.event = {
             name: this.name,
@@ -10,18 +16,7 @@ digitalVotingApp.controller('administrationCtrl', ['$scope', '$stateParams', '$f
             id: null
         };
 
-        // $scope.user = firebase.auth().currentUser;
-        // $scope.users = UserService.getAllUsers();
 
-        $scope.listUsers = function() {
-            console.log($scope.users);
-            $state.transitionTo("manageUsers");
-        }
-
-        // $scope.getUserById = function() {
-        //     $scope.user = UserService.getUserById("106080231831178666577");
-        //     console.log($scope.user);
-        // }
         $scope.createNewEvent = function() {
             $state.transitionTo("createEvent");
         };
@@ -35,50 +30,28 @@ digitalVotingApp.controller('administrationCtrl', ['$scope', '$stateParams', '$f
             };
             $state.transitionTo("editEvent");
         };
+
         $scope.submitEvent = function() {
-            var ref = firebase.database().ref('events/' + firebase.auth().currentUser.uid);
-            var list = $firebaseArray(ref);
-            list.$add({
+            $ionicLoading.show();
+            $scope.eventList.$add({
                 Name: $scope.event.name,
                 Description: $scope.event.desc,
             }).then(function() {
+                $scope.event.name = "";
+                $scope.event.desc = "";
+                $ionicLoading.hide();
                 var alertPopup = $ionicPopup.alert({
                     title: 'Success!',
                     template: "Event created successfully"
                 });
                 alertPopup.then(function(res) {
-                    $state.transitionTo("manageEvents");
+                    //$state.transitionTo("manageEvents");
                 });
             });
         }
-        $scope.events = [];
-        $scope.poll = {};
-        $scope.loadEvents = function() {
-            setTimeout(function() {
-                $scope.events = [];
-                var ref = firebase.database().ref('events/' + firebase.auth().currentUser.uid);
-                var obj = $firebaseArray(ref);
-                obj.$loaded().then(function() {
-                    angular.forEach(obj, function(value, key) {
-                        // $scope.poll.key=value;
-                        $scope.events.push(value);
-                    });
-                    console.log($scope.events);
-                });
-            }, 500);
 
 
-        };
-        $scope.selectedAll = false;
-        $scope.selected = {};
-        $scope.selectAll = function() {
-            $scope.selectedAll = !$scope.selectedAll;
-            for (var i = 0; i < $scope.events.length; i++) {
-                var item = $scope.events[i];
 
-                $scope.selected[item.Name] = $scope.selectedAll;
-            }
-        };
         $scope.deleteEvent = function() {
             var ref = firebase.database().ref('events/' + 'R71XUPUN8JYu7yOKAdIIADBgmEh2');
             var list = $firebaseArray(ref);
@@ -95,8 +68,18 @@ digitalVotingApp.controller('administrationCtrl', ['$scope', '$stateParams', '$f
             });
         };
 
+
+
+        //After selecting event
+        $scope.selectedEvent = null;
+
         $scope.openEvent = function() {
-            alert($scope.event.id)
+            var eventPath = 'events/' + firebase.auth().currentUser.uid + '/' + $scope.event.id;
+            var selectedEventRef = firebase.database().ref(eventPath);
+            $scope.selectedEvent = $firebaseObject(selectedEventRef);
+            $scope.selectedEvent.$loaded(function(data) {
+                console.log(data);
+            });
         }
     }
 ]);

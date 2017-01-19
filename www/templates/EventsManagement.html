@@ -1,40 +1,5 @@
-<ion-view title="Manage Events" ng-init='loadEvents()'>
-    <!--<ion-content padding="true" class="has-header">
-       <div ng-repeat='data in events'>{{data.Name}}</div>
-    </ion-content>-->
+<ion-view title="Manage Events">
     <ion-content>
-        <!--<div class="row header">
-          <div class="col"><input type='checkbox' ng-model='selectedAll' ng-change='selectAll()'/></div>
-          <div class="col">Select All</div>
-          <div class="col"><button class="button" ng-click="deleteEvent()">Delete</button></div>
-          <div class="col"></div>
-        </div>-->
-        <div class="list">
-            <ion-radio class="ion-radio item-icon-right" ng-repeat="data in events" ng-value="data.$id" ng-model="event.id">
-                {{data.Name}}
-            </ion-radio>
-            <!--<div class="row" ng-repeat="data in events">
-                <div class="col"><input type='checkbox' ng-model="selected[data.Name]"></div>
-                <div class="col">{{data.Name}}</div>
-                <div class="col"><button class="button" ng-click="editEvent(data.Name,data.Description)">Edit</button></div>
-                <div class="col"><button class="button" ng-click="">Launch</button></div>
-            </div>-->
-        </div>
-        <div class="row">
-            <div class="col text-center">
-                <button class="button button-assertive" ng-click="deletEvent()">
-                    Delete Event
-                </button>
-            </div>
-            <div class="col text-center">
-                <button class="button button-balanced" ng-click="openEvent()">
-                    Open event
-                </button>
-            </div>
-        </div>
-
-
-
 
     </ion-content>
 </ion-view>
